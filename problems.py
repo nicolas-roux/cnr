@@ -1,9 +1,10 @@
 import numpy as np
 
-class SphereProblem():
-	def __init__(self, d):
-		super().__init__()
+class Problem():
+	def __init__(self, f, d, low, high):
+		self.f = f		
 		self.d = d
+		self.low = low
+		self.high = high
 
-	def eval(self, solution):
-		return np.sum(np.square(solution))
+	
