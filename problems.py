@@ -7,4 +7,3 @@ class Problem():
 		self.low = low
 		self.high = high
 
-	
