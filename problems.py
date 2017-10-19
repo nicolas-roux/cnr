@@ -9,5 +9,3 @@ class Problem():
 		self.low = low
 		#la plus grande valeur de lintevalle des valeurs du vecteur
 		self.high = high
-
-	
