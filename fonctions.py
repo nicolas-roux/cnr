@@ -1,5 +1,9 @@
 import numpy as np
 
-def sphere():
-	# TO DO 
-	return 1
+"""
+Ces fonctions doivent renvoyer une valeur normalisée dans l'intervalle [0,1].
+
+"""
+
+def sphere(solution):
+	return np.sum(np.square(solution))
