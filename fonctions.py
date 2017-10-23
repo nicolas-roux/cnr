@@ -1,7 +1,7 @@
 import numpy as np
 
 """
-Ces fonctions doivent renvoyer une valeur normalisée dans l'intervalle [0,1].
+Ces fonctions doivent renvoyer une valeur normalisee dans lintervalle [0,1].
 
 """
 class Problem():
@@ -14,8 +14,13 @@ class Problem():
 		#la plus grande valeur de lintevalle des valeurs du vecteur
 		self.high = high
 
-def sphere(vals):
-	return np.sum(np.square(vals))
+
+def sphere(solution):
+	return np.sum(np.square(solution))
+
+
+
+
 
 def ellipsoid(vals):
 	f = 0.0
@@ -26,3 +31,4 @@ def ellipsoid(vals):
 
 def rastrigin(vals):
 	return np.add(np.multiply(10,len(vals)), np.sum(np.subtract(np.square(vals), np.multiply(10, np.cos(np.multiply(np.multiply(2, np.pi), vals))))))
+
