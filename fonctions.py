@@ -4,6 +4,15 @@ import numpy as np
 Ces fonctions doivent renvoyer une valeur normalisée dans l'intervalle [0,1].
 
 """
+class Problem():
+	def __init__(self, f, d, low, high):
+		self.f = f
+		#dimensions du vecteur 		
+		self.d = d
+		#la plus petite valeur de lintevalle des valeurs du vecteur
+		self.low = low
+		#la plus grande valeur de lintevalle des valeurs du vecteur
+		self.high = high
 
 def sphere(vals):
 	return np.sum(np.square(vals))
@@ -17,4 +26,3 @@ def ellipsoid(vals):
 
 def rastrigin(vals):
 	return np.add(np.multiply(10,len(vals)), np.sum(np.subtract(np.square(vals), np.multiply(10, np.cos(np.multiply(np.multiply(2, np.pi), vals))))))
-	
