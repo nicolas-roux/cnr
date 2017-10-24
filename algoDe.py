@@ -186,8 +186,11 @@ for it in range(data["nb_iterations"]):
 
 	best_element[cost[-1]] = best_gen[-1].tolist()
 	
-	with open('results.txt', 'w') as file:
+	with open('results.json', 'a') as file:
+		json.dump(data, file)
+		file.write("\n ")	
+		json.dump(best_element, file)
+		file.write("\n \n")	
 		
-		json.dump(best_element, file)		
-			
+		file.close()
 
