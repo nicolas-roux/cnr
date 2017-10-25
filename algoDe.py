@@ -1,8 +1,10 @@
 from fonctions import *
+from average_results_json import *
 import numpy as np
 import matplotlib.pyplot as plt
-
+import string 
 import json
+import copy
 
 
 '''Les fonctions'''
@@ -82,6 +84,7 @@ Mutate/combiante
 '''
 #une matrice qui contient le vecteur du meilleur cout pour chaque generation
 best_element = {}
+fig, ax1 = plt.subplots()
 
 for it in range(data["nb_iterations"]):
 
@@ -91,16 +94,18 @@ for it in range(data["nb_iterations"]):
 
 	x2 = np.empty([NP,D])
 
-	fig, ax1 = plt.subplots()
 
 	print ("iteration: {}".format(it))
 	#best_gen une liste qui contient le meilleur vecteur de chaque generation
 	best_gen = []
 	mse_val = 1
-	count = 0
 	trial = []
+	list_best =[]
+	max_count = 0
 	#cost contien l evaluation de la population x1
 	cost = cost_pop(x1, p1.f, NP)
+
+	count = 0
 	while (count < gen_max) and (mse_val > 0.00000000000000000001):
 		
 
@@ -126,7 +131,7 @@ for it in range(data["nb_iterations"]):
 			
 
 			for k in range(1,D+1):
-				#rnd_uni() < CR est une condition aleatoire 
+					#rnd_uni() < CR est une condition aleatoire 
 				#k == D 
 				if (rnd_uni() < CR or k==D):
 					trial[j] = x1[c][j] + F*(x1[a][j]-x1[b][j])
@@ -173,24 +178,37 @@ for it in range(data["nb_iterations"]):
 		#vecteur correspondant au mmin
 		#print(x1[index_min])
 		#np.concatenate((best_gen ,x1[index_min]))
-		best_gen.append(x1[index_min])
+		best_gen.append(copy.deepcopy(x1[index_min]))
 
-		print("Best score for generation{} is {}".format(count, minn))	
+		print("Best score for generation{} is {}".format(count, minn), end="\r")	
 		#print(minn, end = "\r") 
 		
-		ax1.scatter(count, minn)
-		plt.pause(0.05)
+		
 		count += 1
 		mse_val = mse(x1)
 		#print(mse_val)
-
+	max_count = max(count, max_count)
 	best_element[cost[-1]] = best_gen[-1].tolist()
-	
-	with open('results.json', 'a') as file:
-		json.dump(data, file)
-		file.write("\n ")	
-		json.dump(best_element, file)
-		file.write("\n \n")	
+	print(best_gen)
+	nom_fichier = str(data['fonction'])+"_"+"dim"+"_"+str(data['dim'])+"_"+"F"+"_"+str(data['F'])+"_"+"CR"+"_"+str(data['CR'])+"_"+"gen"+"_"+str(data['gen_max'])+"_"+"iteration"+"_"+str(data['nb_iterations'])+".json"
+
+	with open(nom_fichier, 'w') as file:
+		#json.dump(data, file)
+		#file.write("\n ")	
+		json.dump(best_element, file, indent=4)
+		file.write("\n")	
 		
 		file.close()
+	list_best.append(best_gen)
+	flist = [[] for i in range(max_count)]
 
+for bglist in list_best:
+	for j,bg in enumerate(bglist):
+		flist[j].append(p1.f(bg))
+flist2 = []
+for f in flist:
+	flist2.append(np.mean(f))
+ax1.scatter([i for i in range(max_count)], flist2)
+plt.pause(0.05)
+plt.show()
+moyenne(nom_fichier)
