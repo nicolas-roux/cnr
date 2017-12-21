@@ -1,2 +1,1 @@
-
-{"dim":10 ,"F" : 1.5 , "CR" : 0.9,"NP":100, "gen_max": 1000 , "nb_iterations" : 10, "fonction":"sphere"}
+{"dim":1 ,"F" : 2 , "CR" : 0.9 ,"NP":500, "gen_max": 1000 , "nb_iterations" : 20, "fonction":"sphere"}

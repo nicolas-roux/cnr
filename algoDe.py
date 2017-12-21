@@ -34,7 +34,7 @@ def mse(sols):
 	# returns the mean (across all dimensions) of the squared difference to the average (for each dimension)
 	vals = sols
 	means = np.mean(vals, axis=0) # mean along the 0 axis, ie not per individual but per dimension
-	return np.sum(np.mean(np.square(np.subtract(vals, means)), axis=0)) # subtracting the mean to each vector, squaring and then meaning the result, and returning the sum
+	return np.sum(np.sqrt(np.mean(np.square(np.subtract(vals, means)), axis=0))) # subtracting the mean to each vector, squaring and then meaning the result, and returning the sum
 
 
 
@@ -106,7 +106,7 @@ for it in range(data["nb_iterations"]):
 	cost = cost_pop(x1, p1.f, NP)
 
 	count = 0
-	while (count < gen_max) and (mse_val > 0.00000000000000000001):
+	while (count < gen_max):
 		
 
 		for i in range(NP):
